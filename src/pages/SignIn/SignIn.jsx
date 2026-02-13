@@ -3,12 +3,14 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import signInLottie from "../../lotties/SignIn.json";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Lottie from 'lottie-react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const SignIn = () => {
 
     const { SignInUser } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate()
 
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -20,13 +22,14 @@ const SignIn = () => {
 
         SignInUser(user.email, user.password)
             .then(result => {
-                console.log(result.user);
+                console.log(result.user)
+                alert("Sign In Successfully!")
+                navigate("/")
+                form.reset()
             })
             .catch(error => {
-                console.log(error);
+                alert(error.message)
             });
-        alert("Sign In Successfully!")
-        form.reset()
     };
 
     return (

@@ -14,19 +14,29 @@ const Navbar = () => {
             .catch(error => {
                 console.log(error)
             })
+            alert("User Signed Out")
     }
 
+    const signOut = <>
+        <button onClick={handleSignOut} className="btn btn-error">Sign Out</button>
+    </>
 
     const btn = <>
         <NavLink className="btn btn-outline" to="/register">Register</NavLink>
         <NavLink className="btn btn-primary" to="/signIn">Sign In</NavLink>
     </>
 
+    const isUser = <>
+        {
+            user ? signOut : btn
+        }
+    </>
+
     const responsivelinks = <>
         <li><NavLink className='text-base' to="/" >Home</NavLink></li>
 
         <div className="lg:hidden mt-4 flex flex-col gap-2 border-t border-base-300 pt-4">
-            {btn}
+            {isUser}
         </div>
     </>
 
@@ -57,9 +67,7 @@ const Navbar = () => {
 
             <div className="navbar-end">
                 <div className="hidden lg:flex gap-3">
-                    {
-                        user ? <button onClick={singOutUser} className="btn btn-error">Sign Out</button> : btn
-                    }
+                    {isUser}
                 </div>
             </div>
         </div>
