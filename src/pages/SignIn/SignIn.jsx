@@ -90,7 +90,7 @@ const SignIn = () => {
                     </form>
 
                     <p className="text-sm text-center mt-6">
-                        Don't have an account? <Link to="/register" className="hover:link cursor-pointer">Register</Link>
+                        Don't have an account? <Link to="/register" className="hover:link cursor-pointer text-blue-600">Register</Link>
                     </p>
                 </div>
 
