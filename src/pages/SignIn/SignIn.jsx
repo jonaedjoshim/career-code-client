@@ -3,29 +3,29 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import signInLottie from "../../lotties/SignIn.json";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Lottie from 'lottie-react';
+import { Link } from 'react-router';
 
 const SignIn = () => {
 
-    const { createUser } = use(AuthContext);
+    const { SignInUser } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSignIn = (e) => {
         e.preventDefault();
         const form = e.target;
         const user = {
-            name: form.name.value,
             email: form.email.value,
             password: form.password.value
         };
 
-        createUser(user.email, user.password)
+        SignInUser(user.email, user.password)
             .then(result => {
                 console.log(result.user);
             })
             .catch(error => {
                 console.log(error);
             });
-        alert("Acctount Created Successfully!")
+        alert("Sign In Successfully!")
         form.reset()
     };
 
@@ -87,7 +87,7 @@ const SignIn = () => {
                     </form>
 
                     <p className="text-sm text-center mt-6">
-                        Don't have an account? <span className="hover:link cursor-pointer">Register</span>
+                        Don't have an account? <Link to="/register" className="hover:link cursor-pointer">Register</Link>
                     </p>
                 </div>
 

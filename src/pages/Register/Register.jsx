@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import registerLottie from "../../lotties/Register.json";
 import { AuthContext } from "../../AuthContext/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Register = () => {
     const { createUser } = use(AuthContext);
@@ -17,7 +18,7 @@ const Register = () => {
             password: form.password.value
         };
 
-        createUser(user.email, user.password)
+        createUser(user.name, user.email, user.password)
             .then(result => {
                 console.log(result.user);
             })
@@ -98,7 +99,7 @@ const Register = () => {
                     </form>
 
                     <p className="text-sm text-center mt-6">
-                        Already have an account? <span className="hover:link cursor-pointer">Login</span>
+                        Already have an account? <Link to="/signIn"  className="hover:link cursor-pointer">Sign In</Link>
                     </p>
                 </div>
 
