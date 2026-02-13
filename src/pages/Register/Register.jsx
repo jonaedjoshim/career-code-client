@@ -1,20 +1,31 @@
-import React from "react";
+import React, { use, useState } from "react";
 import Lottie from "lottie-react";
 import registerLottie from "../../lotties/Register.json";
+import { AuthContext } from "../../AuthContext/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
+    const { createUser } = use(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleRegister = (e) => {
-        e.preventDefault()
-        const form = e.target
+        e.preventDefault();
+        const form = e.target;
         const user = {
             name: form.name.value,
             email: form.email.value,
             password: form.password.value
-        }
-        console.log(user)
-    }
+        };
+        console.log(user);
 
+        createUser(user.email, user.password)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="py-16 px-4">
@@ -43,8 +54,10 @@ const Register = () => {
                                 type="text"
                                 placeholder="Enter your name"
                                 className="input input-bordered w-full h-12"
+                                required
                             />
                         </div>
+
                         {/* Email */}
                         <div>
                             <label className="label text-sm font-medium">Email</label>
@@ -53,18 +66,28 @@ const Register = () => {
                                 type="email"
                                 placeholder="Enter your email"
                                 className="input input-bordered w-full h-12"
+                                required
                             />
                         </div>
 
-                        {/* Password */}
-                        <div>
-                            <label className="label text-sm font-medium">Password</label>
-                            <input
-                                name="password"
-                                type="text"
-                                placeholder="Enter your password"
-                                className="input input-bordered w-full h-12"
-                            />
+                        {/* Password with Show/Hide */}
+                        <div className="relative">
+                                <label className="label text-sm font-medium">Password</label>
+                                <input
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Enter your password"
+                                    className="input input-bordered w-full h-12"
+                                    required
+                                />
+                            {/* icon */}
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-9.5 text-gray-500 hover:text-gray-700"
+                            >
+                                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                            </button>
                         </div>
 
                         {/* Button */}
@@ -74,7 +97,7 @@ const Register = () => {
                     </form>
 
                     <p className="text-sm text-center mt-6">
-                        Already have an account? <span className="hover:link">Login</span>
+                        Already have an account? <span className="hover:link cursor-pointer">Login</span>
                     </p>
                 </div>
 
