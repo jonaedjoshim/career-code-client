@@ -3,6 +3,19 @@ import Lottie from "lottie-react";
 import registerLottie from "../../lotties/Register.json";
 
 const Register = () => {
+
+    const handleRegister = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const user = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value
+        }
+        console.log(user)
+    }
+
+
     return (
         <div className="py-16 px-4">
             <div className="w-11/12 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
@@ -20,7 +33,7 @@ const Register = () => {
                         Create Account
                     </h2>
 
-                    <form className="space-y-5">
+                    <form onSubmit={handleRegister} className="space-y-5">
 
                         {/* Name */}
                         <div>
@@ -61,7 +74,7 @@ const Register = () => {
                     </form>
 
                     <p className="text-sm text-center mt-6">
-                        Already have an account? <span>Login</span>
+                        Already have an account? <span className="hover:link">Login</span>
                     </p>
                 </div>
 
