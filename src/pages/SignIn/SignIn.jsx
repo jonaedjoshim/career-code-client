@@ -34,7 +34,7 @@ const SignIn = () => {
 
     return (
         <div className="py-16 px-4">
-            <div className="w-11/12 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
 
                 {/* Animation Section */}
                 <div className="flex justify-center order-1 lg:order-2">
