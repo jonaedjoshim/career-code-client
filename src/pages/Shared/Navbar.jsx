@@ -17,6 +17,15 @@ const Navbar = () => {
             })
     }
 
+    const links = <>
+        <li><NavLink className='text-base' to="/" >Home</NavLink></li>
+        {
+            user && <>
+                <li><NavLink className='text-base' to="/myApplications" >My Applications</NavLink></li>
+            </>
+        }
+    </>
+
     const signOut = <>
         <button onClick={handleSignOut} className="btn btn-error">Sign Out</button>
     </>
@@ -33,7 +42,7 @@ const Navbar = () => {
     </>
 
     const responsivelinks = <>
-        <li><NavLink className='text-base' to="/" >Home</NavLink></li>
+        {links}
 
         <div className="lg:hidden mt-4 flex flex-col gap-2 border-t border-base-300 pt-4">
             {isUser}
@@ -61,7 +70,7 @@ const Navbar = () => {
 
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><NavLink className='text-base' to="/" >Home</NavLink></li>
+                    {links}
                 </ul>
             </div>
 
