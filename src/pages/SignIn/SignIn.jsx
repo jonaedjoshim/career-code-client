@@ -3,28 +3,28 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import signInLottie from "../../lotties/SignIn.json";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Lottie from 'lottie-react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import SocialLogin from '../Shared/SocialLogin';
 
 const SignIn = () => {
 
     const { SignInUser } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
-
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state || '/'
 
     const handleSignIn = (e) => {
         e.preventDefault();
         const form = e.target;
-        const user = {
-            email: form.email.value,
-            password: form.password.value
-        };
+        const email = form.email.value;
+        const password = form.password.value;
 
-        SignInUser(user.email, user.password)
+        SignInUser(email, password)
             .then(result => {
                 console.log(result.user)
                 alert("Sign In Successfully!")
-                navigate("/")
+                navigate(from)
                 form.reset()
             })
             .catch(error => {
@@ -34,7 +34,7 @@ const SignIn = () => {
 
     return (
         <div className="py-16 px-4">
-            <div className="max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-6xl grid lg:grid-cols-2 gap-12 items-center mx-auto">
 
                 {/* Animation Section */}
                 <div className="flex justify-center order-1 lg:order-2">
@@ -73,27 +73,29 @@ const SignIn = () => {
                                 className="input input-bordered w-full h-12"
                                 required
                             />
-                            {/* icon */}
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-9.5 text-gray-500 hover:text-gray-700"
+                                className="absolute right-3 top-12 text-gray-500 hover:text-gray-700"
                             >
                                 {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
                             </button>
                         </div>
 
                         {/* Button */}
-                        <button className="btn w-full mt-4">
+                        <button className="btn btn-primary w-full mt-4">
                             Sign In
                         </button>
                     </form>
+
+                    {/* Divider and Social Login Button placed here */}
+                    <div className="divider">OR</div>
+                    <SocialLogin />
 
                     <p className="text-sm text-center mt-6">
                         Don't have an account? <Link to="/register" className="hover:link cursor-pointer text-blue-600">Register</Link>
                     </p>
                 </div>
-
             </div>
         </div>
     );

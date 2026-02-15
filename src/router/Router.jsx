@@ -4,7 +4,9 @@ import RootLayout from '../layouts/RootLayout';
 import Home from '../pages/Home/Home';
 import Register from '../pages/Register/Register';
 import SignIn from '../pages/SignIn/SignIn';
-import JobDetails from '../pages/JobDetails/JobDetails';
+import JobDetails from '../pages/jobDetails/JobDetails';
+import JobApply from '../pages/JobApply/JobApply';
+import PrivateRoute from '../routes/PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -13,23 +15,27 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home,
+                element: <Home />
             },
             {
                 path: '/register',
-                Component: Register
+                element: <Register />
             },
             {
                 path: '/signIn',
-                Component: SignIn
+                element: <SignIn />
             },
             {
                 path: '/jobs/:id',
-                Component: JobDetails,
+                element: <JobDetails />,
                 loader: async ({ params }) => {
                     const res = await fetch(`http://localhost:5000/jobs/${params.id}`);
                     return res.json();
                 }
+            },
+            {
+                path: 'jobApply/:id',
+                element: <PrivateRoute><JobApply /></PrivateRoute>
             }
         ]
     }

@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../../AuthContext/AuthContext';
 
 const Navbar = () => {
@@ -56,7 +56,7 @@ const Navbar = () => {
                         {responsivelinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl font-bold">Career Codeer</a>
+                <Link to="/" className="btn btn-ghost text-xl font-bold">Career Codeer</Link>
             </div>
 
             <div className="navbar-center hidden lg:flex">
