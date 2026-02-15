@@ -10,12 +10,21 @@ const JobCard = ({ job }) => {
             <div className="card-body p-6">
                 {/* Header: Company Logo & Info */}
                 <div className='flex items-start gap-4 mb-4'>
-                    <div className='p-2 bg-base-200 rounded-lg group-hover:bg-primary/10 transition-colors'>
-                        <img
-                            src={company_logo}
-                            className='w-12 h-12 object-contain'
-                            alt={company} />
+                    {/* Logo Section with Fallback Character */}
+                    <div className='p-2 bg-base-200 rounded-lg group-hover:bg-primary/10 transition-colors flex items-center justify-center w-12 h-12 overflow-hidden'>
+                        {company_logo ? (
+                            <img
+                                src={company_logo}
+                                className='w-full h-full object-contain'
+                                alt={company} 
+                            />
+                        ) : (
+                            <span className="text-xl font-bold text-primary uppercase">
+                                {company?.charAt(0)}
+                            </span>
+                        )}
                     </div>
+
                     <div>
                         <h3 className="text-xl font-bold text-base-content leading-tight">{company}</h3>
                         <p className='flex gap-1 items-center text-sm text-gray-500 mt-1'>
@@ -25,7 +34,7 @@ const JobCard = ({ job }) => {
                 </div>
 
                 {/* Job Title */}
-                <div>
+                <div className="grow">
                     <h2 className="text-xl font-bold hover:text-primary transition-colors cursor-pointer">
                         {title}
                         <span className="badge badge-sm badge-secondary ml-2 py-2">NEW</span>
@@ -38,7 +47,7 @@ const JobCard = ({ job }) => {
                 {/* Skills/Requirements */}
                 <div className="flex flex-wrap gap-2 my-4">
                     {
-                        requirements.slice(0, 4).map((skill, index) => (
+                        requirements?.slice(0, 4).map((skill, index) => (
                             <span
                                 key={index}
                                 className="px-3 py-1 bg-base-200 text-xs font-medium rounded-full text-base-content/70 hover:bg-primary hover:text-white transition-all cursor-default"
@@ -53,8 +62,8 @@ const JobCard = ({ job }) => {
                 <div className="card-actions justify-between items-center mt-auto pt-4 border-t border-base-100">
                     <div className='flex items-center font-semibold text-primary'>
                         <FaDollarSign />
-                        <span className='text-lg'>{salaryRange.min} - {salaryRange.max}</span>
-                        <span className='text-xs text-gray-400 ml-1'>/{salaryRange.currency}</span>
+                        <span className='text-lg'>{salaryRange?.min} - {salaryRange?.max}</span>
+                        <span className='text-xs text-gray-400 ml-1'>/{salaryRange?.currency}</span>
                     </div>
                     <Link to={`/jobs/${_id}`}>
                         <button className="btn btn-primary btn-sm normal-case hover:px-6 transition-all">
