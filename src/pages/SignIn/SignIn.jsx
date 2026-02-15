@@ -90,7 +90,7 @@ const SignIn = () => {
 
                     {/* Divider and Social Login Button placed here */}
                     <div className="divider">OR</div>
-                    <SocialLogin />
+                    <SocialLogin from={from} />
 
                     <p className="text-sm text-center mt-6">
                         Don't have an account? <Link to="/register" className="hover:link cursor-pointer text-blue-600">Register</Link>
