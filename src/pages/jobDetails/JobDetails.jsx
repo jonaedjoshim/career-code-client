@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router';
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaMoneyBillWave, FaEnvelope, FaUserTie } from 'react-icons/fa';
+import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaMoneyBillWave, FaEnvelope, FaUserTie, FaTag } from 'react-icons/fa';
 
 const JobDetails = () => {
-    // লোডার থেকে সব ডাটা ডিস্ট্রাকচার করে নেওয়া হলো
     const { 
         _id, title, location, jobType, category, applicationDeadline, 
         salaryRange, description, company, requirements, responsibilities, 
@@ -18,7 +17,11 @@ const JobDetails = () => {
                     <img src={company_logo} alt={company} className="w-20 h-20 object-contain rounded-lg shadow-sm" />
                     <div>
                         <h1 className="text-3xl font-bold text-primary">{title}</h1>
-                        <p className="text-xl font-medium text-gray-500">{company}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                            <p className="text-xl font-medium text-gray-500">{company}</p>
+                            
+                            <div className="badge badge-secondary badge-outline ml-2">{category}</div>
+                        </div>
                     </div>
                 </div>
                 <Link to={`/jobApply/${_id}`}>
@@ -71,17 +74,21 @@ const JobDetails = () => {
                     </section>
                 </div>
 
-                {/* Sidebar: HR Contact Info */}
+                {/* Sidebar: Category and HR Contact Info */}
                 <div className="bg-base-200 p-8 rounded-2xl h-fit border border-base-300 shadow-inner">
-                    <h3 className="text-xl font-bold mb-6 text-center">Contact HR</h3>
+                    <h3 className="text-xl font-bold mb-6 text-center underline decoration-primary underline-offset-4">Quick Summary</h3>
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
+                            <FaTag className="text-gray-500" />
+                            <p><strong>Category:</strong> {category}</p>
+                        </div>
+                        <div className="flex items-center gap-3">
                             <FaUserTie className="text-gray-500" />
-                            <p><strong>Name:</strong> {hr_name}</p>
+                            <p><strong>HR Name:</strong> {hr_name}</p>
                         </div>
                         <div className="flex items-center gap-3">
                             <FaEnvelope className="text-gray-500" />
-                            <p className="break-all"><strong>Email:</strong> {hr_email}</p>
+                            <p className="break-all"><strong>Contact:</strong> {hr_email}</p>
                         </div>
                     </div>
                 </div>
