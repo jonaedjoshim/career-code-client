@@ -10,7 +10,6 @@ const MyApplications = () => {
 
     return (
         <div>
-            <ApplicationStats />
             <ApplicationList myApplicationsPromise={myApplicationsPromise(user.email)} />
         </div>
     );
