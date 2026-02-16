@@ -36,7 +36,7 @@ const JobApply = () => {
       appliedDate: new Date().toISOString(),
     };
 
-    axios.post('http://localhost:5000/job-applications', application)
+    axios.post('http://localhost:5000/applications', application)
       .then(res => {
         setLoading(false);
         if (res.data.insertedId) {

@@ -2,7 +2,6 @@ import React from 'react';
 import { FaBriefcase, FaCheckCircle, FaUserCheck } from 'react-icons/fa';
 
 const ApplicationStats = ({ applications }) => {
-    // Optional chaining (?.) ব্যবহার করা হয়েছে যাতে ডেটা না আসা পর্যন্ত ক্রাশ না করে
     const totalApplied = applications?.length || 0;
     const successRate = totalApplied > 0 ? 100 : 0; 
 
