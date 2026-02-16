@@ -19,9 +19,20 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink className='text-base' to="/" >Home</NavLink></li>
+
+        {/* for applicant links */}
+
         {
             user && <>
                 <li><NavLink className='text-base' to="/myApplications" >My Applications</NavLink></li>
+            </>
+        }
+
+        {/* for recruiter  */}
+
+        {
+            user && <>
+                <li><NavLink className='text-base' to="/addJob" >Add Job</NavLink></li>
             </>
         }
     </>
