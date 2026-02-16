@@ -3,6 +3,6 @@ export const myApplicationsPromise = async (email, accessToken) => {
         headers: {
             authorization: `Bearer ${accessToken}`
         }
-    });
-    return await res.json();
-};
+    })
+    return await res.json()
+}
