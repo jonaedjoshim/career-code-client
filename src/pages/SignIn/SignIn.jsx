@@ -22,7 +22,6 @@ const SignIn = () => {
 
         SignInUser(email, password)
             .then(result => {
-                console.log(result.user)
                 alert("Sign In Successfully!")
                 navigate(from)
                 form.reset()
