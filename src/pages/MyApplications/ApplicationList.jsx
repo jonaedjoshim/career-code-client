@@ -35,9 +35,9 @@ const ApplicationList = () => {
 
     if (loading) {
         return (
-            <div className="flex flex-col justify-center items-center gap-4">
-                <span className="loading loading-ring loading-lg text-primary"></span>
-                <p className="text-sm font-semibold animate-pulse">Loading...</p>
+            // ei loading e issue
+            <div className='w-fit mx-auto mt-52'> 
+                <span className="loading loading-ring loading-xl"></span>
             </div>
         );
     }
