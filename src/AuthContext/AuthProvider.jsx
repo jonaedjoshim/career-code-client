@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const SignInUser = (email, password) => {
+    const signInUser = (email, password) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
-    const singOutUser = () => {
+    const signOutUser = () => {
         setLoading(true)
         return signOut(auth)
     }
@@ -59,9 +59,9 @@ const AuthProvider = ({ children }) => {
         loading,
         user,
         createUser,
-        SignInUser,
+        signInUser,
         signInWithGoogle,
-        singOutUser
+        signOutUser
     }
 
     return (
