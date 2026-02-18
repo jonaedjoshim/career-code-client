@@ -8,7 +8,7 @@ import SocialLogin from '../Shared/SocialLogin';
 
 const SignIn = () => {
 
-    const { SignInUser } = use(AuthContext);
+    const { signInUser } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
     const location = useLocation()
@@ -20,7 +20,7 @@ const SignIn = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        SignInUser(email, password)
+        signInUser(email, password)
             .then(result => {
                 alert("Sign In Successfully!")
                 navigate(from)
@@ -75,7 +75,7 @@ const SignIn = () => {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-12 text-gray-500 hover:text-gray-700"
+                                className="absolute right-3 top-9.5 text-gray-500 hover:text-gray-700"
                             >
                                 {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
                             </button>

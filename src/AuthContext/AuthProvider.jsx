@@ -9,6 +9,7 @@ import {
     signOut
 } from 'firebase/auth'
 import auth from '../firebase/firebase.init';
+import axios from 'axios';
 
 const googleProvider = new GoogleAuthProvider();
 
