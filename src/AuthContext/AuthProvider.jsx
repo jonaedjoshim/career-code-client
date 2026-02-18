@@ -5,7 +5,7 @@ import {
     GoogleAuthProvider,
     onAuthStateChanged,
     signInWithEmailAndPassword,
-    signInWithPopup,  
+    signInWithPopup,
     signOut
 } from 'firebase/auth'
 import auth from '../firebase/firebase.init';
@@ -41,6 +41,16 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
             setLoading(false)
+            if (currentUser?.email) {
+                const userData = { email: currentUser.email }
+                axios.post('http://localhost:5000/jwt', userData)
+                    .then(res => {
+                        console.log('token after jwt', res.data)
+                        // const token = res.data.token
+                        // localStorage.setItem('token', token)
+                    })
+                    .catch(error => console.log(error))
+            }
         })
         return () => unSubscribe()
     }, [])
@@ -50,12 +60,12 @@ const AuthProvider = ({ children }) => {
         user,
         createUser,
         SignInUser,
-        signInWithGoogle, 
+        signInWithGoogle,
         singOutUser
     }
 
     return (
-        <AuthContext.Provider value={authInfo}> 
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
