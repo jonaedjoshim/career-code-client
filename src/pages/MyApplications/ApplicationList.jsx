@@ -14,7 +14,7 @@ const ApplicationList = () => {
 
         setLoading(true);
 
-        fetch(`http://localhost:5000/applications?email=${user.email}`, {
+        fetch(`https://career-code-server-jonaed.vercel.app/applications?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
             }

@@ -48,7 +48,7 @@ const AddJob = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/jobs",
+        "https://career-code-server-jonaed.vercel.app/jobs",
         newJob
       );
 

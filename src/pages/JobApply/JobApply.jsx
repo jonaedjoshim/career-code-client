@@ -13,7 +13,7 @@ const JobApply = () => {
   const [job, setJob] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jobs/${jobId}`)
+    fetch(`https://career-code-server-jonaed.vercel.app/jobs/${jobId}`)
       .then(res => res.json())
       .then(data => setJob(data))
   }, [jobId])
@@ -36,7 +36,7 @@ const JobApply = () => {
       appliedDate: new Date().toISOString(),
     };
 
-    axios.post('http://localhost:5000/applications', application)
+    axios.post('https://career-code-server-jonaed.vercel.app/applications', application)
       .then(res => {
         setLoading(false);
         if (res.data.insertedId) {

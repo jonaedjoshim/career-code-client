@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
             if (currentUser?.email) {
                 const userData = { email: currentUser.email }
-                axios.post('http://localhost:5000/jwt', userData)
+                axios.post('https://career-code-server-jonaed.vercel.app/jwt', userData)
                     .then(res => {
                         console.log('token after jwt', res.data)
                         // const token = res.data.token

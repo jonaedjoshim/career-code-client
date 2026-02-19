@@ -8,7 +8,7 @@ const ViewApplications = () => {
     const applications = useLoaderData();
 
     const handleStatusChange = (e, app_id) => {
-        axios.patch(`http://localhost:5000/applications/${app_id}`, { status: e.target.value })
+        axios.patch(`https://career-code-server-jonaed.vercel.app/applications/${app_id}`, { status: e.target.value })
             .then(res => {
                 if (res.data.modifiedCount) {
                     Swal.fire({

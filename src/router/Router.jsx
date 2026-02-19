@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                 path: '/jobs/:id',
                 element: <JobDetails />,
                 loader: async ({ params }) => {
-                    const res = await fetch(`http://localhost:5000/jobs/${params.id}`);
+                    const res = await fetch(`https://career-code-server-jonaed.vercel.app/jobs/${params.id}`);
                     return res.json();
                 }
             },
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                 path: 'applications/:job_id',
                 element: <PrivateRoute><ViewApplications /></PrivateRoute>,
                 loader: ({ params }) =>
-                    fetch(`http://localhost:5000/applications/job/${params.job_id}`)
+                    fetch(`https://career-code-server-jonaed.vercel.app/applications/job/${params.job_id}`)
             }
         ]
     }
