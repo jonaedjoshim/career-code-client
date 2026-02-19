@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import JobApplicationRow from './JobApplicationRow';
 import ApplicationStats from './ApplicationStats';
 import { FaBriefcase, FaInbox } from 'react-icons/fa';
-import useAuth from '../../hooks/useAuth'; 
+import useAuth from '../../hooks/useAuth';
 
 const ApplicationList = () => {
     const { user } = useAuth();
@@ -10,20 +10,24 @@ const ApplicationList = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!user?.email) return;
+        if (!user?.email || !user?.accessToken) return;
 
         setLoading(true);
-        fetch(`http://localhost:5000/applications?email=${user.email}`)
+
+        fetch(`http://localhost:5000/applications?email=${user.email}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setApplications(data);
                 setLoading(false);
             })
-            .catch(err => {
-                console.error("Fetch Error:", err);
-                setLoading(false);
-            });
-    }, [user?.email]);
+            .catch(() => setLoading(false));
+
+    }, [user?.email, user?.accessToken]);
+
 
     if (!user?.email) {
         return (
@@ -35,8 +39,7 @@ const ApplicationList = () => {
 
     if (loading) {
         return (
-            // ei loading e issue
-            <div className='w-fit mx-auto mt-52'> 
+            <div className='w-fit mx-auto mt-52'>
                 <span className="loading loading-ring loading-xl"></span>
             </div>
         );

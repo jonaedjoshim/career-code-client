@@ -4,10 +4,10 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const { user, singOutUser } = use(AuthContext)
+    const { user, signOutUser } = use(AuthContext)
 
     const handleSignOut = () => {
-        singOutUser()
+        signOutUser()
             .then(() => {
                 alert("User Signed Out")
                 navigate("/signIn")

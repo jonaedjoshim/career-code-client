@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import { Link, useParams, useNavigate } from 'react-router';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -29,7 +29,7 @@ const JobApply = () => {
 
     const application = {
       jobId,
-      applicant_email: user.email,
+      applicant: user.email,
       linkedIn,
       github,
       resume,
@@ -44,20 +44,19 @@ const JobApply = () => {
             icon: "success",
             title: "Application Submitted!",
             text: "Your professional details have been sent successfully.",
-            showConfirmButton: false,
-            timer: 2000
+            timer: 2000,
+            showConfirmButton: false
           });
           navigate('/myApplications');
         }
       })
-      .catch(error => {
+      .catch(() => {
         setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong! Please try again.",
         });
-        console.error(error);
       });
   };
 
@@ -69,13 +68,13 @@ const JobApply = () => {
         <div className="bg-base-200 p-8 text-primary-content">
           <h2 className="text-3xl font-bold mb-2">Apply for this Position</h2>
           
-          <p className="text-xl font-medium text-accent">
+          <p className="text-xl font-medium text-primary">
             Applying for: <span className="">{job.title || "Loading..."}</span>
           </p>
 
           <p className="opacity-90 mt-2">Please provide your professional links to proceed with your application.</p>
           <div className="mt-4">
-            <Link to={`/jobs/${jobId}`} className="btn btn-sm btn-outline btn-accent">
+            <Link to={`/jobs/${jobId}`} className="btn btn-sm btn-outline btn-primary">
               View Job Details
             </Link>
           </div>

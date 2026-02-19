@@ -1,82 +1,74 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router';
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaMoneyBillWave, FaEnvelope, FaUserTie, FaTag } from 'react-icons/fa';
+import { Link, useLoaderData } from 'react-router-dom';
+import { FaLocationArrow, FaBriefcase, FaCalendarAlt, FaMoneyBillWave, FaTag, FaUserTie, FaEnvelope } from 'react-icons/fa';
 
 const JobDetails = () => {
-    const { 
-        _id, title, location, jobType, category, applicationDeadline, 
-        salaryRange, description, company, requirements, responsibilities, 
-        hr_email, hr_name, company_logo 
-    } = useLoaderData();
+    const job = useLoaderData();
+
+    const {
+        _id, title, location, jobType, category,
+        deadline, salaryRange = {},
+        description, company,
+        requirements = [], responsibilities = [],
+        hr_email, hr_name, company_logo
+    } = job;
 
     return (
-        <div className="max-w-6xl mx-auto my-10 p-5 lg:p-10 bg-base-100 shadow-xl rounded-2xl border border-gray-200">
-            {/* Header Section: Company Logo and Title */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b pb-8">
+        <div className="max-w-6xl mx-auto my-14 p-6 lg:p-12 bg-base-100 shadow-2xl rounded-3xl">
+
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-b pb-8">
                 <div className="flex items-center gap-5">
-                    <img src={company_logo} alt={company} className="w-20 h-20 object-contain rounded-lg shadow-sm" />
+                    <img src={company_logo} alt={company} className="w-20 h-20 object-contain rounded-xl shadow-md" />
                     <div>
-                        <h1 className="text-3xl font-bold text-primary">{title}</h1>
-                        <div className="flex items-center gap-2 mt-1">
-                            <p className="text-xl font-medium text-gray-500">{company}</p>
-                            
-                            <div className="badge badge-secondary badge-outline ml-2">{category}</div>
-                        </div>
+                        <h1 className="text-3xl font-extrabold text-primary">{title}</h1>
+                        <p className="text-lg text-gray-500">{company}</p>
                     </div>
                 </div>
                 <Link to={`/jobApply/${_id}`}>
-                    <button className="btn btn-primary btn-lg px-10 shadow-md">Apply Now</button>
+                    <button className="btn btn-primary btn-lg px-10 rounded-xl shadow-lg">
+                        Apply Now
+                    </button>
                 </Link>
             </div>
 
-            {/* Info Grid: Key details at a glance */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
-                <div className="flex items-center gap-3 p-4 border rounded-lg">
-                    <FaLocationArrow className="text-primary" />
-                    <div><p className="text-xs text-gray-400">Location</p><p className="font-semibold">{location}</p></div>
+            <div className="grid md:grid-cols-4 gap-6 my-10">
+                <div className="info-box"><FaLocationArrow /> {location}</div>
+                <div className="info-box"><FaBriefcase /> {jobType}</div>
+                <div className="info-box">
+                    <FaMoneyBillWave />
+                    {salaryRange?.min} - {salaryRange?.max} {salaryRange?.currency}
                 </div>
-                <div className="flex items-center gap-3 p-4 border rounded-lg">
-                    <FaBriefcase className="text-primary" />
-                    <div><p className="text-xs text-gray-400">Job Type</p><p className="font-semibold">{jobType}</p></div>
-                </div>
-                <div className="flex items-center gap-3 p-4 border rounded-lg">
-                    <FaMoneyBillWave className="text-primary" />
-                    <div><p className="text-xs text-gray-400">Salary Range</p><p className="font-semibold">{salaryRange.min} - {salaryRange.max} {salaryRange.currency.toUpperCase()}</p></div>
-                </div>
-                <div className="flex items-center gap-3 p-4 border rounded-lg">
-                    <FaCalendarAlt className="text-primary" />
-                    <div><p className="text-xs text-gray-400">Deadline</p><p className="font-semibold">{applicationDeadline}</p></div>
-                </div>
+                <div className="info-box"><FaCalendarAlt /> {deadline}</div>
             </div>
 
-            {/* Main Content: Description, Requirements, and Responsibilities */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                <div className="lg:col-span-2 space-y-8">
-                    <section>
-                        <h3 className="text-2xl font-bold mb-3 border-l-4 border-primary pl-3">Description</h3>
-                        <p className="text-gray-600 leading-relaxed text-lg">{description}</p>
-                    </section>
-
-                    <section>
-                        <h3 className="text-2xl font-bold mb-3 border-l-4 border-primary pl-3">Requirements</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {requirements.map((req, idx) => (
-                                <div key={idx} className="badge badge-outline badge-primary p-4">{req}</div>
-                            ))}
-                        </div>
-                    </section>
-
-                    <section>
-                        <h3 className="text-2xl font-bold mb-3 border-l-4 border-primary pl-3">Responsibilities</h3>
-                        <ul className="list-disc list-inside space-y-2 text-gray-600">
-                            {responsibilities.map((resp, idx) => <li key={idx}>{resp}</li>)}
-                        </ul>
-                    </section>
+            <div className="space-y-8">
+                <div>
+                    <h3 className="text-2xl font-bold mb-3">Description</h3>
+                    <p className="text-gray-600">{description}</p>
                 </div>
 
-                {/* Sidebar: Category and HR Contact Info */}
-                <div className="bg-base-200 p-8 rounded-2xl h-fit border border-base-300 shadow-inner">
-                    <h3 className="text-xl font-bold mb-6 text-center underline decoration-primary underline-offset-4">Quick Summary</h3>
+                <div>
+                    <h3 className="text-2xl font-bold mb-3">Requirements</h3>
+                    <div className="flex flex-wrap gap-3">
+                        {requirements.map((req, idx) => (
+                            <span key={idx} className="badge badge-primary badge-outline p-4">
+                                {req}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-2xl font-bold mb-3">Responsibilities</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600">
+                        {responsibilities.map((resp, idx) => (
+                            <li key={idx}>{resp}</li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="pb-4">
+                    <h3 className="text-xl font-bold mb-6 decoration-primary">Quick Summary</h3>
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
                             <FaTag className="text-gray-500" />

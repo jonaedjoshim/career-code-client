@@ -8,9 +8,9 @@ const Home = () => {
 
     return (
         <div>
-            <Banner></Banner>
+            <Banner />
             <Suspense fallback={'Loading hot jobs...'}>
-                <HotJobs jobsPromise={jobsPromise}></HotJobs>
+                <HotJobs jobsPromise={jobsPromise} />
             </Suspense>
         </div>
     );

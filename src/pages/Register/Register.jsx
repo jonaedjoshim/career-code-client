@@ -1,12 +1,12 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import Lottie from "lottie-react";
 import registerLottie from "../../lotties/Register.json";
-import { AuthContext } from "../../AuthContext/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const { createUser } = use(AuthContext);
+    const { createUser } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Register = () => {
         const password = form.password.value;
 
         createUser(email, password)
-            .then(result => {
+            .then(() => {
                 alert("Account Created Successfully!");
                 form.reset();
                 navigate("/");

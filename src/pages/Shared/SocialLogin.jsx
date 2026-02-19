@@ -1,25 +1,25 @@
-import React, { use } from 'react';
-import { useNavigate } from 'react-router';
-import { AuthContext } from '../../AuthContext/AuthContext';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const SocialLogin = ({ from }) => {
-    const { signInWithGoogle } = use(AuthContext);
+    const { signInWithGoogle } = useAuth();
     const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then(result => {
-                navigate(from || '/'); 
+            .then(() => {
+                navigate(from || '/', { replace: true });
             })
             .catch(error => {
                 console.log("Google Login Error:", error.message);
-            })
-    }
+            });
+    };
 
     return (
-        <div className="w-full"> 
-            <button 
-                onClick={handleGoogleSignIn} 
+        <div className="w-full">
+            <button
+                onClick={handleGoogleSignIn}
                 className="btn w-full bg-white text-black border-[#e5e5e5] hover:bg-gray-100 flex items-center justify-center gap-2"
             >
                 <svg aria-label="Google logo" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

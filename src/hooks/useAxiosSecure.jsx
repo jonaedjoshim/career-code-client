@@ -1,35 +1,43 @@
 import axios from 'axios';
-import React from 'react';
+import { useEffect } from 'react';
 import useAuth from './useAuth';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/'
-})
+    baseURL: 'http://localhost:5000/',
+});
 
 const useAxiosSecure = () => {
     const { user, signOutUser } = useAuth();
 
-    axiosInstance.interceptors.request.use(config => {
-        config.headers.authorization = `Bearer ${user.accessToken}`
-        return config;
-    });
+    useEffect(() => {
 
-    // response interceptor
-    axiosInstance.interceptors.response.use(response => {
-        return response;
-    }, error => {
-        console.log(error)
-        if (error.status === 401 || error.status === 403) {
-            signOutUser()
-                .then(() => {
-                    console.log('sign out user for 401 status code')
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        return Promise.reject(error)
-    })
+        const requestInterceptor = axiosInstance.interceptors.request.use(
+            config => {
+                if (user?.accessToken) {
+                    config.headers.authorization = `Bearer ${user.accessToken}`;
+                }
+                return config;
+            }
+        );
+
+        const responseInterceptor = axiosInstance.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response?.status === 401 || error.response?.status === 403) {
+                    signOutUser()
+                        .then(() => console.log('User signed out due to unauthorized access'))
+                        .catch(err => console.log(err));
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        return () => {
+            axiosInstance.interceptors.request.eject(requestInterceptor);
+            axiosInstance.interceptors.response.eject(responseInterceptor);
+        };
+
+    }, [user, signOutUser]);
 
     return axiosInstance;
 };

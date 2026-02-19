@@ -1,18 +1,18 @@
-import React, { use, useState } from 'react';
-import { AuthContext } from '../../AuthContext/AuthContext';
+import React, { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import signInLottie from "../../lotties/SignIn.json";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Lottie from 'lottie-react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../Shared/SocialLogin';
 
 const SignIn = () => {
 
-    const { signInUser } = use(AuthContext);
+    const { signInUser } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate()
-    const location = useLocation()
-    const from = location.state || '/'
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -21,13 +21,13 @@ const SignIn = () => {
         const password = form.password.value;
 
         signInUser(email, password)
-            .then(result => {
-                alert("Sign In Successfully!")
-                navigate(from)
-                form.reset()
+            .then(() => {
+                alert("Sign In Successfully!");
+                navigate(from, { replace: true });
+                form.reset();
             })
             .catch(error => {
-                alert(error.message)
+                alert(error.message);
             });
     };
 
